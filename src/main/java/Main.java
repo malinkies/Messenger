@@ -17,17 +17,46 @@ public class Main {
             masUsers[i] = user;
         }
         System.out.println("Выберете ваш аккаунт:");
-        for (int i = 0; i < 5; i++) {
-            masUsers[i].creatUser();
-        }
+        toString(masUsers);
         User admin = new User(scanner.nextLine());
-        admin.menu();
-        admin.getUsers(masUsers, admin); //крч возвращает всех ост пользователей, которые не явл админом
-        //String action = scanner.nextLine(); //тип ввод операции, которую хочет совершить админ
+        menu();
+        User[] users = User.getUsers(masUsers, admin);
+        String action = scanner.nextLine(); //тип ввод операции, которую хочет совершить админ
+
+        //КАК ЕЁ ЗАЦИКЛИТЬ??? типо оно должно работать пока админ не введет Exit, но крч у меня все ломается и мне лень думать  ТТ_ТТ
 
         Message message = new Message("приветики", "вчера", masUsers[0]);
         Group group1 = new Group("УРА", new Message[]{message});
         group1.sendMessage("прив", "сегодня", masUsers[1]);
         group1.printMessages();
+        if (action.equals("Зайти на канал")) {
+            System.out.println("Выбери чей канал хочешь посетить: ");
+            toString(users);
+            System.out.println(admin.codeAdmin(masUsers, admin) + "Мой канал" + "\u001B[0m");
+            User choice = new User(scanner.nextLine());
+            Channel.posts(choice, admin, masUsers, "");
+        }
+        if (action.equals("Сделать новый пост")) {
+            System.out.println("Введите новый пост:");
+            String post = scanner.nextLine();
+            Channel.posts(new User("Мой канал"), admin, masUsers, post);
+        }
+    }
+
+    public static void menu() {
+        System.out.println("""
+                Вам доступны следующие операции:\s
+                \u25CF Написать сообщение\s
+                \u25CF Прочитать сообщения
+                \u25CF Зайти на канал\s
+                \u25CF Сделать новый пост\s
+                \u25CF Exit
+                """);
+    }
+
+    public static void toString(User[] masUsers) {
+        for (int i = 0; i < masUsers.length; i++) {
+            System.out.println(masUsers[i].toString());
+        }
     }
 }

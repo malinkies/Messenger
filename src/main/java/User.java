@@ -2,15 +2,19 @@ import java.util.Random;
 
 public class User {
     protected String userName;
+    protected String colorCode;
 
     public User(String userName) {
         this.userName = userName;
+        this.colorCode = generateColor();
     }
 
     public User() {
     }
-
-    public void creatUser() {
+    public String getUserName() {
+        return this.userName;
+    }
+    public String generateColor() {
         Random random = new Random();
         String[] colors = {
                 "\u001B[38;2;135;206;235m",
@@ -26,20 +30,25 @@ public class User {
 
         };
         int color = random.nextInt(colors.length);
-        System.out.println(colors[color] + userName + "\u001B[0m");
+        return colors[color];
     }
-    public void menu() {
-        System.out.println("""
-                Вам доступны следующие операции:\s
-                \u25CF Написать сообщение\s
-                \u25CF Зайти на канал\s
-                \u25CF Прочитать сообщения""");
-    }
-    public User[] getUsers(User[] masUsers, User admin) {
-        User[] users = new User[5];
-        for (int i = 0; i < 5; i++ ) {
-            if (!admin.equals(masUsers[i])) users[i] = masUsers[i];
+    public static User[] getUsers(User[] masUsers, User admin) {
+        User[] users = new User[4];
+        int index = 0;
+        for (int i = 0; i < 5; i++) {
+            if (!masUsers[i].userName.equals(admin.userName)) users[index++] = masUsers[i];
         }
         return users;
     }
+    public String codeAdmin(User[] masUsers, User admin) {
+        for (int i = 0; i < 5; i++) {
+            if (masUsers[i].userName.equals(admin.userName)) return masUsers[i].colorCode;
+        }
+        return null;
+    }
+
+    public String toString() {
+        return colorCode + userName + "\u001B[0m";
+    }
+
 }
