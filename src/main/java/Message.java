@@ -4,6 +4,13 @@ public class Message {
     protected User sender;
     protected User receiver;
 
+    public Message(){
+        this.text = "";
+        this.date = "";
+        this.sender = new User();
+        this.receiver = new User();
+    }
+
     public Message(String text, String date, User sender, User receiver) {
         this.text = text;
         this.date = date;
@@ -11,8 +18,14 @@ public class Message {
         this.receiver = receiver;
     }
 
+    public Message(String text, String date, User sender) {
+        this.text = text;
+        this.date = date;
+        this.sender = sender;
+    }
+
     public String toString(){
-        return "от" + this.sender + "к" + this.receiver + ":\n" + this.text;
+        return sender + " |" + date + "|" + ":\n" + text;
     }
 
     public String getText() {

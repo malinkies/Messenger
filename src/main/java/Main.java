@@ -25,5 +25,9 @@ public class Main {
         admin.getUsers(masUsers, admin); //крч возвращает всех ост пользователей, которые не явл админом
         //String action = scanner.nextLine(); //тип ввод операции, которую хочет совершить админ
 
+        Message message = new Message("приветики", "вчера", masUsers[0]);
+        Group group1 = new Group("УРА", new Message[]{message});
+        group1.sendMessage("прив", "сегодня", masUsers[1]);
+        group1.printMessages();
     }
 }
