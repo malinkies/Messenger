@@ -31,12 +31,12 @@ public class Main {
             toString(users);
             System.out.println(admin.codeAdmin(masUsers, admin) + "Мой канал" + "\u001B[0m");
             User choice = new User(scanner.nextLine());
-            Channel.posts(choice, admin, masUsers);
+            Channel.posts(choice, admin, masUsers, "");
         }
         if (action.equals("Сделать новый пост")) {
             System.out.println("Введите новый пост:");
             String post = scanner.nextLine();
-            Channel.newPost(post, admin, masUsers);
+            Channel.posts(new User("Мой канал"), admin, masUsers, post);
         }
     }
 

@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Random;
 
 public class User {
@@ -12,7 +11,9 @@ public class User {
 
     public User() {
     }
-
+    public String getUserName() {
+        return this.userName;
+    }
     public String generateColor() {
         Random random = new Random();
         String[] colors = {
@@ -35,13 +36,13 @@ public class User {
         User[] users = new User[4];
         int index = 0;
         for (int i = 0; i < 5; i++) {
-            if (!masUsers[i].equal(admin) && masUsers[i] != null) users[index++] = masUsers[i];
+            if (!masUsers[i].userName.equals(admin.userName)) users[index++] = masUsers[i];
         }
         return users;
     }
     public String codeAdmin(User[] masUsers, User admin) {
         for (int i = 0; i < 5; i++) {
-            if (masUsers[i].equal(admin)) return masUsers[i].colorCode;
+            if (masUsers[i].userName.equals(admin.userName)) return masUsers[i].colorCode;
         }
         return null;
     }
@@ -50,10 +51,4 @@ public class User {
         return colorCode + userName + "\u001B[0m";
     }
 
-    public boolean equal(Object obj) {
-        if (this == obj) return true;
-        if (getClass() != obj.getClass()) return false;
-        User other = (User) obj;
-        return userName != null ? userName.equals(other.userName) : other.userName == null;
-    }
 }

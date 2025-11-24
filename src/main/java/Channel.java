@@ -1,24 +1,17 @@
-/*
-Tail Mail - вооот седня с собачкой своей погуляли красиво все дела/ реклама приютов/ волонтерство
-стыд и позор - личная жизнь
-Физика для гуманитариев - начало занятий/ запоминалки формул/ задачи на дом
-Звёзды не врут (ну почти)
-Between Pages - рассказывает о новых книгах/ что прочитала+отзыв/ прост личная жизнь
- */
-public class Channel extends User {
+public class Channel {
     protected String choice;
 
     public Channel(String choice) {
         this.choice = choice;
     }
 
-    //public Channel() {}
-    public static void posts(User name, User admin, User[] masUsers) {
+    public Channel() {}
+    public static void posts(User name, User admin, User[] masUsers, String post) {
         User[] user = User.getUsers(masUsers, admin);
         String colorTittle = "\u001B[38;2;184;134;11m";
         String reset = "\u001B[0m";
-        if (name.equal(user[0])) {
-            System.out.print("Канал: " + colorTittle + "Tail Mail" + reset + " admin: " + name + " followers: 35.000"
+        if (name.userName.equals(user[0].userName)) {
+            System.out.print("Канал: " + colorTittle + "Tail Mail" + reset + " admin: " + name  + " followers: 35.000"
                     + "\n --------------------22 ноября 2025--------------------\n" +
                     "Всееееем привет!!! Немножко о себе: Я ПРОСТО ОБОЖАЮ ЖИВОТНЫХ\n" +
                     "Нуууу настолько сильно, что пришлось создать целый канал!\n" +
@@ -30,7 +23,7 @@ public class Channel extends User {
                     "\u25CF Волонтёрские лайфхаки и реальные кейсы\n" +
                     "\u25CF Иногда — просто милые истории из жизни с моим щеночком, чтобы поднять настроение ");
         }
-        if (name.equal(user[1])) {
+        if (name.userName.equals(user[1].userName)) {
             System.out.print("Канал: " + colorTittle + "Физика для гуманитариев" + reset + " admin: " + name + " followers: 1000" +
                     "\n --------------------19 ноября 2025--------------------\n" +
                     " Почему небо синее?\n" +
@@ -45,8 +38,8 @@ public class Channel extends User {
                     "Пар давит на узкое отверстие — и заставляет воздух вибрировать.\n" +
                     "По сути, чайник — это духовой инструмент с единственной нотой: «Выключи меня!».");
         }
-        if (name.equal(user[2])) {
-            System.out.print("Канал: " + colorTittle + "Звёзды не врут (ну почти) " + reset + " admin: " + name + " followers: 5000" +
+        if (name.userName.equals(user[2].userName)) {
+            System.out.print("Канал: " + colorTittle + "Звёзды не врут (ну почти) " + reset + " admin: " + name  + " followers: 5000" +
                     "\n --------------------20 ноября 2025--------------------\n" +
                     "Сегодня звёзды в замешательстве.\n" +
                     "Вы — тоже.\n" +
@@ -56,8 +49,8 @@ public class Channel extends User {
                     "Звёзды одобряют.\n" +
                     "Главное — не путать «планы на вечер» с «планами выжить до утра». ");
         }
-        if (name.equal(user[3])) {
-            System.out.print("Канал: " + colorTittle + "Between Pages" + reset + " admin: " + name + " followers: 35" +
+        if (name.userName.equals(user[3].userName)) {
+            System.out.print("Канал: " + colorTittle + "Between Pages" + reset + " admin: "  + name +  " followers: 35" +
                     "\n --------------------20 ноября 2025--------------------\n" +
                     "ОООО ребят моя домашняя библиотека пополнилась на пру тройку книг\n" +
                     "Ждите обзорчики!!!!!\n" +
@@ -66,20 +59,31 @@ public class Channel extends User {
                     "поверьте это оооочень хорошо\n" +
                     "завтра будет отзыв!");
         }
-        if (name.equal(new User("Мой канал"))) {
-            System.out.print("Канал: " + colorTittle + "стыд и позор" + reset + " admin: " + name + " followers: 4" +
+        if (name.userName.equals(new User("Мой канал").userName)) {
+            String[] masPost = new String[10];
+            masPost[0] = "Канал: " + colorTittle + "стыд и позор" + reset + " admin: "  + "Вы" + " followers: 4" +
                     "\n --------------------19 ноября 2025--------------------\n" +
-                    "Блин такая классная кафешка открылась около моего дома. Оч вкусно!\n" +
-                    "\n --------------------20 ноября 2025--------------------\n" +
-                    "Ничего не делать целый день так классно! А у вас как дела?)\n" +
-                    "\n --------------------21 ноября 2025--------------------\n" +
-                    "Зачем люди придумали высшую математику... \n");
+                    "Блин такая классная кафешка открылась около моего дома. Оч вкусно!\n";
+            masPost[1] = "\n --------------------20 ноября 2025--------------------\n" +
+                    "Ничего не делать целый день так классно! А у вас как дела?)\n";
+            masPost[2] = "\n --------------------21 ноября 2025--------------------\n" +
+                    "Зачем люди придумали высшую математику... \n";
+            if (!post.equals("")) {
+                for (int i = 0; i < 10; i++) {
+                    if (masPost[i] == null) {
+                        masPost[i] = "\n --------------------сегодня--------------------\n" +
+                                post + "\n";
+                        break;
+                    }
+                }
+            }
+            toString(masPost);
         }
     }
 
-    public static void newPost(String post, User admin, User[] masUsers) {
-        posts(new User("Мой канал"), admin, masUsers);
-        System.out.println("\n --------------------сегодня--------------------\n" +
-                post);
+    public static void toString(String[] masPost) {
+        for (String post : masPost) {
+            if (post != null) System.out.println(post);
+        }
     }
 }
