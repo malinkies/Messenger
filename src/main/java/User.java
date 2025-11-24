@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class User {
     protected String userName;
 
